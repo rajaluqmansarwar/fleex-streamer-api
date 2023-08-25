@@ -7,44 +7,51 @@ import {
   Post,
   Put,
   Patch,
+  ValidationPipe,
 } from '@nestjs/common';
 import { SourceDto } from './dto/source.dto';
+import { SourceService } from './source.service';
+import { ApiTags } from '@nestjs/swagger';
+import { Source } from './schema/source.schema';
 
 @Controller('source')
+@ApiTags('Source')
 export class SourceController {
+  constructor(private sourceService: SourceService) {}
+
   // Getting source by id
   @Get('get/:id')
-  getSourceById(@Param('id') id: number) {
-    return 'this controller gets source by ID using getSourceById service';
+  getSourceById(@Param('id') id: string): Promise<Source> {
+    return this.sourceService.getSourceById(id);
   }
 
   // Getting source list
-  @Get('get/:id')
+  @Get('list')
   getSourceList() {
-    return 'this controller gets list of sources using getSourceById service';
+    return this.sourceService.getSourcelist();
   }
 
   // Creating a source list
   @Post('add')
-  addSource(@Body() sourceDto: SourceDto) {
-    return 'this controller creates a source using addSource service';
+  addSource(@Body(ValidationPipe) sourceDto: SourceDto) {
+    return this.sourceService.addSource(sourceDto);
   }
 
   // Updating a source
   @Put('update/:id')
   updateSource(@Param('id') id: number) {
-    return 'this controller updates a source by id using a updateSource service';
+    return this.sourceService.updateSource(id);
   }
 
   // Deleting a source
   @Delete('remove/:id')
   removeSource(@Param('id') id: number) {
-    return 'this controller will delete a source using a removeSource service';
+    return this.sourceService.removeSource(id);
   }
 
   // Updating status of source
   @Patch('update-status')
   updateStatus() {
-    return 'this controller updates the status of source using updateStatus service';
+    return this.sourceService.updateStatus();
   }
 }
