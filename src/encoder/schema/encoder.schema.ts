@@ -1,26 +1,13 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-export type SourceDocument = Source & Document;
-
+export type EncoderDocument = Encoder & Document;
 @Schema({ timestamps: true })
-export class Source {
+export class Encoder {
   @Prop()
-  protocol: string;
+  source: string;
 
   @Prop()
-  url: string;
-
-  @Prop()
-  path: string;
-
-  @Prop()
-  address: string;
-
-  @Prop()
-  port: string;
-
-  @Prop()
-  nic: string;
+  encoding: string;
 
   @Prop()
   online: boolean;
@@ -41,9 +28,16 @@ export class Source {
   codecVideo: string;
 
   @Prop()
+  audioBitrate: number;
+
+  @Prop()
+  videoBitrate: number;
+
+  @Prop()
   width: number;
 
   @Prop()
   height: number;
 }
-export const SourceSchema = SchemaFactory.createForClass(Source);
+
+export const EncoderSchema = SchemaFactory.createForClass(Encoder);

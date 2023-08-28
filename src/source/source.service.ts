@@ -13,7 +13,11 @@ export class SourceService {
 
   // Getting source by id service
   async getSourceById(id: string): Promise<Source> {
-    return await this.sourceModel.findById({ _id: id });
+    const encoder = await this.sourceModel.findById({ _id: id });
+    if (!encoder) {
+      throw new UnauthorizedException('No source available');
+    }
+    return encoder;
   }
 
   // Getting source list service
@@ -38,8 +42,6 @@ export class SourceService {
     source.codecVideo = 'Example codec Video';
     source.width = 0;
     source.height = 0;
-    source.createdAt = new Date().toLocaleDateString();
-    source.updatedAt = '';
     return source.save();
   }
 
