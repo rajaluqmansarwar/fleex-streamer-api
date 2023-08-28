@@ -13,6 +13,8 @@ import { SourceDto } from './dto/source.dto';
 import { SourceService } from './source.service';
 import { ApiTags } from '@nestjs/swagger';
 import { Source } from './schema/source.schema';
+import { Request } from 'express';
+import { UpdateStatusStreamDto } from './dto/updateStreamStatus.dto';
 
 @Controller('source')
 @ApiTags('Source')
@@ -39,19 +41,24 @@ export class SourceController {
 
   // Updating a source
   @Put('update/:id')
-  updateSource(@Param('id') id: number) {
-    return this.sourceService.updateSource(id);
+  updateSource(
+    @Param('id') id: string,
+    @Body(ValidationPipe) sourceDto: SourceDto,
+  ) {
+    return this.sourceService.updateSource(id, sourceDto);
   }
 
   // Deleting a source
   @Delete('remove/:id')
-  removeSource(@Param('id') id: number) {
+  removeSource(@Param('id') id: string) {
     return this.sourceService.removeSource(id);
   }
 
   // Updating status of source
   @Patch('update-status')
-  updateStatus() {
-    return this.sourceService.updateStatus();
+  updateStatus(
+    @Body(ValidationPipe) updateStatusStreamDto: UpdateStatusStreamDto,
+  ) {
+    return this.sourceService.updateStatus(updateStatusStreamDto);
   }
 }

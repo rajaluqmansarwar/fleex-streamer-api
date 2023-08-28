@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { SourceDto } from './dto/source.dto';
 import { Source, SourceDocument } from './schema/source.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { UpdateStatusStreamDto } from './dto/updateStreamStatus.dto';
 
 @Injectable()
 export class SourceService {
@@ -16,8 +17,8 @@ export class SourceService {
   }
 
   // Getting source list service
-  getSourcelist(): Promise<Source[]> {
-    return this.sourceModel.find();
+  async getSourcelist(): Promise<Source[]> {
+    return await this.sourceModel.find();
   }
 
   // Adding source service
@@ -43,17 +44,42 @@ export class SourceService {
   }
 
   // Updating source by id service
-  updateSource(id: number) {
-    return 'Updated source';
+  async updateSource(id: string, sourceDto: SourceDto) {
+    const source = await this.sourceModel.findById(id);
+    if (!source) {
+      throw new UnauthorizedException('Source not found');
+    }
+    return await this.sourceModel.updateOne(
+      { _id: id },
+      {
+        protocol: sourceDto.protocol,
+        address: sourceDto.address,
+        port: sourceDto.port,
+        nic: sourceDto.nic,
+      },
+    );
   }
 
   // Removing source by id service
-  removeSource(id: number) {
-    return 'Source removed';
+  async removeSource(id: string) {
+    const source = await this.sourceModel.findById(id);
+    if (!source) {
+      throw new UnauthorizedException('Source not found');
+    }
+    return await this.sourceModel.deleteOne({ _id: id });
   }
 
   // Updating source status service
-  updateStatus() {
-    return 'Source status updated';
+  async updateStatus(updateStatusStreamDto: UpdateStatusStreamDto) {
+    const source = await this.sourceModel.findById(updateStatusStreamDto.id);
+    if (!source) {
+      throw new UnauthorizedException('Source not found');
+    }
+    return await this.sourceModel.updateOne(
+      { _id: updateStatusStreamDto.id },
+      {
+        enabled: updateStatusStreamDto.enable,
+      },
+    );
   }
 }
