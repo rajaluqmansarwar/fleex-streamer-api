@@ -3,6 +3,7 @@ import { SourceModule } from './source/source.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { EncoderModule } from './encoder/encoder.module';
+import { OutputModule } from './output/output.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { EncoderModule } from './encoder/encoder.module';
     }),
     SourceModule,
     EncoderModule,
+    OutputModule,
   ],
   controllers: [],
   providers: [],
