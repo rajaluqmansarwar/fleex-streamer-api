@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
+import { EncoderController } from './encoder.controller';
 
 @Module({
   imports: [],
-  controllers: [],
+  controllers: [EncoderController],
   providers: [],
   exports: [],
 })

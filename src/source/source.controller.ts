@@ -23,42 +23,42 @@ export class SourceController {
 
   // Getting source by id
   @Get('get/:id')
-  getSourceById(@Param('id') id: string): Promise<Source> {
-    return this.sourceService.getSourceById(id);
+  async getSourceById(@Param('id') id: string): Promise<Source> {
+    return await this.sourceService.getSourceById(id);
   }
 
   // Getting source list
   @Get('list')
-  getSourceList() {
-    return this.sourceService.getSourcelist();
+  async getSourceList(): Promise<Source[]> {
+    return await this.sourceService.getSourcelist();
   }
 
   // Creating a source list
   @Post('add')
-  addSource(@Body(ValidationPipe) sourceDto: SourceDto) {
-    return this.sourceService.addSource(sourceDto);
+  async addSource(@Body(ValidationPipe) sourceDto: SourceDto): Promise<Source> {
+    return await this.sourceService.addSource(sourceDto);
   }
 
   // Updating a source
   @Put('update/:id')
-  updateSource(
+  async updateSource(
     @Param('id') id: string,
     @Body(ValidationPipe) sourceDto: SourceDto,
   ) {
-    return this.sourceService.updateSource(id, sourceDto);
+    return await this.sourceService.updateSource(id, sourceDto);
   }
 
   // Deleting a source
   @Delete('remove/:id')
-  removeSource(@Param('id') id: string) {
-    return this.sourceService.removeSource(id);
+  async removeSource(@Param('id') id: string) {
+    return await this.sourceService.removeSource(id);
   }
 
   // Updating status of source
   @Patch('update-status')
-  updateStatus(
+  async updateStatus(
     @Body(ValidationPipe) updateStatusStreamDto: UpdateStatusStreamDto,
   ) {
-    return this.sourceService.updateStatus(updateStatusStreamDto);
+    return await this.sourceService.updateStatus(updateStatusStreamDto);
   }
 }
