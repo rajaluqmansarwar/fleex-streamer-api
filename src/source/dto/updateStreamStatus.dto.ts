@@ -8,5 +8,5 @@ export class UpdateStatusStreamDto {
 
   @ApiProperty()
   @IsString()
-  enable: true;
+  enable: boolean;
 }

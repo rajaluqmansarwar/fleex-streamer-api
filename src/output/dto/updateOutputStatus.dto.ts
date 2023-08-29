@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString } from 'class-validator';
-export class UpdateEncoderStatusDto {
+export class UpdateOutputStatusDto {
   @ApiProperty()
   @IsString()
   id: string;

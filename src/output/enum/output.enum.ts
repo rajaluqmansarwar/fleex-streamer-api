@@ -1,8 +1,8 @@
-export enum protocol {
+export enum Protocol {
   protocol = 'dash',
 }
 
-export enum streams {
+export enum Streams {
   udp = 'udp',
   rtsp = 'rtsp',
 }
