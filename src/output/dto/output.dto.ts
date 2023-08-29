@@ -1,4 +1,4 @@
-import { IsArray, IsEnum, IsString } from 'class-validator';
+import { IsEnum, IsString } from 'class-validator';
 import { Protocol, Streams } from '../enum/output.enum';
 import { ApiProperty } from '@nestjs/swagger';
 

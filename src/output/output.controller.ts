@@ -39,7 +39,10 @@ export class OutputController {
 
   // Updating a output by id
   @Put('update/:id')
-  async updateOutputById(@Param('id') id: string, outputDto: OutputDto) {
+  async updateOutputById(
+    @Param('id') id: string,
+    @Body() outputDto: OutputDto,
+  ) {
     return await this.outputService.updateOutputById(id, outputDto);
   }
 
